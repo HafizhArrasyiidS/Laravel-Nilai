@@ -25,7 +25,7 @@
                             @endforeach
                         </select>
                     </div>
-                    <a href="{{ route('mapel.index') }}" class="btn btn-dark">Kembali</a>
+                    <a href="{{ route('mapel.show', $pengajar->mapel_id) }}" class="btn btn-dark">Kembali</a>
                     <button type="reset" class="btn btn-danger">Reset</button>
                     <button type="submit" class="btn btn-success">Edit</button>
                 </form>
