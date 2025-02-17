@@ -62,12 +62,16 @@ class PengajarController extends Controller
     public function update(Request $request, Pengajar $pengajar)
     {
         $this->validate($request, [
-            'guru_id'   =>  ['required', Rule::unique('pengajars', 'guru_id')->where('mapel_id', $request->mapel_id)]
+            'guru_id' =>  'required'
         ]);
+        $exists = Pengajar::where('mapel_id', $pengajar->mapel_id)->where('guru_id', $request->guru_id)->where('id','!=', $pengajar->id)->exists();
+        if($exists) {
+            return redirect()->back()->withErrors(['guru_id' => 'Guru Sudah Ada']);
+        } 
         $pengajar->update([
             'guru_id'   =>  $request->guru_id
         ]);
-        return redirect()->route('mapel.show', $pengajar->mapel_id)->with(['succes', 'berhasil']);
+        return redirect()->route('mapel.show', $pengajar->mapel_id)->with(['success', 'berhasil']);
     }
 
     /**
